@@ -1,0 +1,16 @@
+﻿<Window x:Class="PepeKursach.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PepeKursach"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button Name="openFileButton" Content="Выбрать файл" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="103" Height="21" Click="buttonOpenFileClick"/>
+        <Button Name="deCodeButton" Content="Расшифровать" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Width="116" Click="decodeButton"/>
+        <TextBox Name="keywordLine" Height="21" Margin="0,20,20,0" TextWrapping="Wrap" Text="скорпион" VerticalAlignment="Top" HorizontalAlignment="Right" Width="164" FontSize="14"/>
+        <Label Content="Ключ:" HorizontalAlignment="Right" Margin="0,16,189,0" VerticalAlignment="Top" FontSize="14"/>
+
+    </Grid>
+</Window>
