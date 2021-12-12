@@ -26,8 +26,8 @@ namespace PepeKursach
                 if (messageIndex != -1)
                 {
                     // Ключ закончился - начинаем сначала.
-                    if (keyIndex > key.Length - 1) 
-                    { 
+                    if (keyIndex > key.Length - 1)
+                    {
                         keyIndex = 0;
                     }
 
@@ -41,7 +41,7 @@ namespace PepeKursach
                     {
                         pos = messageIndex;
                     }
-                    
+
                     if (pos > alphabet.Length - 1)
                     {
                         pos = pos - alphabet.Length;
@@ -57,60 +57,47 @@ namespace PepeKursach
 
         public string Encode(string text, string keyword)
         {
-            char[] massage = text.ToCharArray();
-            char[] key = keyword.ToCharArray();
+            char[] message = text.ToLower().ToCharArray();
+            char[] key = keyword.ToLower().ToCharArray();
 
             int pos;
             int keyIndex = 0;
-            int j, shift;
-            // Перебираем каждый символ сообщения
-            for (int i = 0; i < massage.Length; i++)
-            {
-                // Ищем индекс буквы
-                for (j = 0; j < alphabet.Length; j++)
-                {
-                    if (massage[i] == alphabet[j])
-                    {
-                        break;
-                    }
-                }
+            int messageIndex, shift;
 
-                if (j != 33) // Если j равно 33, значит символ не из алфавита
+            for (int i = 0; i < message.Length; i++)
+            {
+                messageIndex = new string(alphabet).IndexOf(message[i]);
+
+                if (messageIndex != -1)
                 {
                     // Ключ закончился - начинаем сначала.
-                    if (keyIndex > key.Length - 1) { keyIndex = 0; }
-
-                    // Ищем индекс буквы ключа
-                    for (shift = 0; shift < alphabet.Length; shift++)
+                    if (keyIndex > key.Length - 1)
                     {
-                        if (key[keyIndex] == alphabet[shift])
-                        {
-                            break;
-                        }
+                        keyIndex = 0;
                     }
 
-                    keyIndex++;
+                    shift = new string(alphabet).IndexOf(key[keyIndex]);
 
-                    if (shift != 33) // Если f равно 33, значит символ не из алфавита
+                    if (shift != -1)
                     {
-                        pos = j + shift;
+                        pos = messageIndex + shift;
                     }
                     else
                     {
-                        pos = j;
+                        pos = messageIndex;
                     }
 
-                    // Проверяем, чтобы не вышли за пределы алфавита
-                    if (pos > 32)
+                    if (pos > alphabet.Length - 1)
                     {
-                        pos = pos - 33;
+                        pos = pos - alphabet.Length;
                     }
 
-                    massage[i] = alphabet[pos]; // Меняем букву
+                    message[i] = alphabet[pos];
+                    keyIndex++;
                 }
             }
 
-            return new string(massage);
+            return new string(message);
         }
     }
 }

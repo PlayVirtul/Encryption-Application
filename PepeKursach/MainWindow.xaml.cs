@@ -46,14 +46,37 @@ namespace PepeKursach
             }
             else
             {
-                if (string.IsNullOrEmpty(keywordLine.Text))
+                if (string.IsNullOrEmpty(codekeyLine.Text))
                 {
                     MessageBox.Show("Ключ не указан");
                 }
                 else
                 {
                     Coderator coderator = new Coderator();
-                    string decodeText = coderator.Decode(FileHandler.Text, keywordLine.Text);
+                    string decodeText = coderator.Decode(FileHandler.Text, decodekeyLine.Text);
+                    CipherWindow cipherWindow = new CipherWindow();
+                    cipherWindow.Show();
+                    cipherWindow.ShowCipherText(decodeText);
+                }
+            }
+        }
+
+        private void codeButton(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(normalText.Text))
+            {
+                MessageBox.Show("Поле ничего не содержит");
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(codekeyLine.Text))
+                {
+                    MessageBox.Show("Ключ не указан");
+                }
+                else
+                {
+                    Coderator coderator = new Coderator();
+                    string decodeText = coderator.Encode(normalText.Text, codekeyLine.Text);
                     CipherWindow cipherWindow = new CipherWindow();
                     cipherWindow.Show();
                     cipherWindow.ShowCipherText(decodeText);
