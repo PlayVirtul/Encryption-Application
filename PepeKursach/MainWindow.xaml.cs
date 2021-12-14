@@ -40,7 +40,7 @@ namespace PepeKursach
 
         private void decodeButton(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrEmpty(FileHandler.Text))
+            if (string.IsNullOrEmpty(FileHandler.Text))
             {
                 MessageBox.Show("Файл ничего не содержит");
             }
@@ -52,11 +52,18 @@ namespace PepeKursach
                 }
                 else
                 {
-                    Coderator coderator = new Coderator();
-                    string decodeText = coderator.Decode(FileHandler.Text, decodekeyLine.Text);
-                    CipherWindow cipherWindow = new CipherWindow();
-                    cipherWindow.Show();
-                    cipherWindow.ShowCipherText(decodeText);
+                    if (string.IsNullOrEmpty(decodekeyLine.Text))
+                    {
+                        MessageBox.Show("Ключ не указан");
+                    }
+                    else
+                    {
+                        Coderator coderator = new Coderator();
+                        string decodeText = coderator.Decode(FileHandler.Text, decodekeyLine.Text);
+                        CipherWindow cipherWindow = new CipherWindow();
+                        cipherWindow.Show();
+                        cipherWindow.ShowCipherText(decodeText);
+                    }
                 }
             }
         }

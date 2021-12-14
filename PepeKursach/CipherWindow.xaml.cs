@@ -40,5 +40,10 @@ namespace PepeKursach
                 File.WriteAllText(saveFile.FileName, cipherText.Text);
             }
         }
+
+        private void CloseButton(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
