@@ -37,7 +37,15 @@ namespace PepeKursach
             saveFile.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             if (saveFile.ShowDialog() == true)
             {
-                File.WriteAllText(saveFile.FileName, cipherText.Text);
+                try
+                {
+                    File.WriteAllText(saveFile.FileName, cipherText.Text);
+                    MessageBox.Show("Файл успешно сохранён");
+                }
+                catch(Exception er)
+                {
+                    MessageBox.Show(er.Message);
+                }
             }
         }
 
