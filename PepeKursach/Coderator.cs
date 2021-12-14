@@ -12,7 +12,7 @@ namespace PepeKursach
 
         public string Decode(string text, string keyword)
         {
-            char[] message = text.ToLower().ToCharArray();
+            char[] message = text.ToCharArray();
             char[] key = keyword.ToLower().ToCharArray();
 
             int pos;
@@ -21,7 +21,7 @@ namespace PepeKursach
 
             for (int i = 0; i < message.Length; i++)
             {
-                messageIndex = new string(alphabet).IndexOf(message[i]);
+                messageIndex = new string(alphabet).IndexOf(Char.ToLower(message[i]));
 
                 if (messageIndex != -1)
                 {
@@ -47,7 +47,14 @@ namespace PepeKursach
                         pos = pos - alphabet.Length;
                     }
 
-                    message[i] = alphabet[pos];
+                    if (Char.IsUpper(message[i]))
+                    {
+                        message[i] = Char.ToUpper(alphabet[pos]);
+                    }
+                    else
+                    {
+                        message[i] = alphabet[pos];
+                    }
                     keyIndex++;
                 }
             }
@@ -57,7 +64,7 @@ namespace PepeKursach
 
         public string Encode(string text, string keyword)
         {
-            char[] message = text.ToLower().ToCharArray();
+            char[] message = text.ToCharArray();
             char[] key = keyword.ToLower().ToCharArray();
 
             int pos;
@@ -66,7 +73,7 @@ namespace PepeKursach
 
             for (int i = 0; i < message.Length; i++)
             {
-                messageIndex = new string(alphabet).IndexOf(message[i]);
+                messageIndex = new string(alphabet).IndexOf(Char.ToLower(message[i]));
 
                 if (messageIndex != -1)
                 {
@@ -92,7 +99,14 @@ namespace PepeKursach
                         pos = pos - alphabet.Length;
                     }
 
-                    message[i] = alphabet[pos];
+                    if (Char.IsUpper(message[i]))
+                    {
+                        message[i] = Char.ToUpper(alphabet[pos]);
+                    }
+                    else
+                    {
+                        message[i] = alphabet[pos];
+                    }
                     keyIndex++;
                 }
             }
