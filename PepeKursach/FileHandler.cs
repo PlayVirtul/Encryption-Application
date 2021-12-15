@@ -1,29 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Office.Interop.Word;
 
 namespace PepeKursach
 {
     public static class FileHandler
     {
-        public static string filePath;
+        public static string FilePath { get; set; }
 
-        public static string Text { get; private set; }
+        public static string FileText { get; private set; }
 
         public static void ReadTextFromFile()
         {
-            try
+            if (Path.GetExtension(FilePath).Equals(".txt", StringComparison.InvariantCultureIgnoreCase))
             {
-                Text = File.ReadAllText(filePath);
-                MessageBox.Show("файл успешно считан");
+                try
+                {
+                    FileText = File.ReadAllText(FilePath);
+                    MessageBox.Show("файл успешно считан");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
-            catch(Exception e)
+            else if(Path.GetExtension(FilePath).Equals(".docx", StringComparison.InvariantCultureIgnoreCase) ||
+                Path.GetExtension(FilePath).Equals(".doc", StringComparison.InvariantCultureIgnoreCase))
             {
-                MessageBox.Show(e.Message);
+                try
+                {
+                    Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+                    Document doc = app.Documents.Open(FilePath);
+                    FileText = doc.Content.Text;
+                    app.Quit();
+                    MessageBox.Show("файл успешно считан");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
     }

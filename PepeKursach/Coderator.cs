@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PepeKursach
 {
@@ -25,7 +21,6 @@ namespace PepeKursach
 
                 if (messageIndex != -1)
                 {
-                    // Ключ закончился - начинаем сначала.
                     if (keyIndex > key.Length - 1)
                     {
                         keyIndex = 0;
@@ -77,7 +72,6 @@ namespace PepeKursach
 
                 if (messageIndex != -1)
                 {
-                    // Ключ закончился - начинаем сначала.
                     if (keyIndex > key.Length - 1)
                     {
                         keyIndex = 0;

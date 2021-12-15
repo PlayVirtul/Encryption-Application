@@ -1,25 +1,12 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
+using Microsoft.Office.Interop.Word;
 
 namespace PepeKursach
 {
-    /// <summary>
-    /// Interaction logic for CipherWindow.xaml
-    /// </summary>
-    public partial class CipherWindow : Window
+    public partial class CipherWindow : System.Windows.Window
     {
         public CipherWindow()
         {
@@ -34,17 +21,37 @@ namespace PepeKursach
         private void SaveCipherText(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFile.Filter = "txt files|*.txt|Word Documents|*.docx;*.docx|All files|*.*";
             if (saveFile.ShowDialog() == true)
             {
-                try
+                if (Path.GetExtension(saveFile.FileName).Equals(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    File.WriteAllText(saveFile.FileName, cipherText.Text);
-                    MessageBox.Show("Файл успешно сохранён");
+                    try
+                    {
+                        File.WriteAllText(saveFile.FileName, cipherText.Text);
+                        MessageBox.Show("Файл успешно сохранён");
+                    }
+                    catch (Exception er)
+                    {
+                        MessageBox.Show(er.Message);
+                    }
                 }
-                catch(Exception er)
+                else if (Path.GetExtension(saveFile.FileName).Equals(".docx", StringComparison.InvariantCultureIgnoreCase) ||
+                Path.GetExtension(saveFile.FileName).Equals(".doc", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    MessageBox.Show(er.Message);
+                    try
+                    {
+                        Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+                        Document doc = app.Documents.Add();
+                        doc.Content.Text = cipherText.Text;
+                        app.ActiveDocument.SaveAs(saveFile.FileName);
+                        app.Quit();
+                        MessageBox.Show("Файл успешно сохранён");
+                    }
+                    catch (Exception ee)
+                    {
+                        MessageBox.Show(ee.Message);
+                    }
                 }
             }
         }
